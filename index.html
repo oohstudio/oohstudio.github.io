@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O.OH STUDIO</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #F7F5F0;
+    --ink: #1A1916;
+    --muted: #8A887F;
+    --border: rgba(26,25,22,0.12);
+    --accent: #C8A96A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 4rem;
+    background: rgba(247,245,240,0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted);
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  section { padding: 7rem 4rem; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding-bottom: 5rem;
+    position: relative;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .hero-tag {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 2rem;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(64px, 10vw, 120px);
+    font-weight: 300;
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    margin-bottom: 3rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .hero-sub {
+    display: flex; gap: 2rem; align-items: center;
+    font-size: 12px; color: var(--muted); letter-spacing: 0.1em;
+  }
+
+  .hero-sub span::before { content: '—'; margin-right: 0.5rem; }
+
+  .hero-scroll {
+    position: absolute; right: 4rem; bottom: 5rem;
+    writing-mode: vertical-rl;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted);
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+  /* ABOUT */
+  #about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .about-label {
+    font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 2rem;
+  }
+
+  .about-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  .about-details { display: flex; flex-direction: column; gap: 2rem; }
+
+  .about-item {
+    padding-top: 1.5rem;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .about-item-label {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 0.5rem;
+  }
+
+  .about-item-val {
+    font-size: 14px; color: var(--ink);
+  }
+
+  /* WORK */
+  #work { border-bottom: 0.5px solid var(--border); }
+
+  .section-header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 4rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .section-title {
+    font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .section-count {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px; color: var(--muted);
+    font-style: italic;
+  }
+
+  .projects { display: flex; flex-direction: column; }
+
+  .project {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    gap: 3rem;
+    padding: 2rem 0;
+    border-bottom: 0.5px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .project::after {
+    content: '';
+    position: absolute; left: 0; bottom: -0.5px;
+    width: 0; height: 0.5px;
+    background: var(--ink);
+    transition: width 0.4s ease;
+  }
+
+  .project:hover::after { width: 100%; }
+
+  .project:hover .project-title {
+    letter-spacing: 0.06em;
+  }
+
+  .project-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px; font-style: italic;
+    color: var(--muted);
+  }
+
+  .project-info { display: flex; flex-direction: column; gap: 4px; }
+
+  .project-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 300;
+    letter-spacing: 0.03em;
+    transition: letter-spacing 0.4s ease;
+  }
+
+  .project-meta {
+    font-size: 11px; color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  .project-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end; }
+
+  .tag {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    border: 0.5px solid var(--border);
+    padding: 4px 10px;
+    color: var(--muted);
+  }
+
+  /* CONTACT */
+  #contact {
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; padding: 8rem 4rem;
+  }
+
+  .contact-pre {
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 2rem;
+  }
+
+  .contact-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 3rem;
+  }
+
+  .contact-title em { font-style: italic; color: var(--muted); }
+
+  .contact-link {
+    display: inline-block;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    border-bottom: 0.5px solid var(--ink);
+    padding-bottom: 2px;
+    transition: color 0.3s, border-color 0.3s;
+    margin: 0 1.5rem;
+  }
+
+  .contact-link:hover { color: var(--muted); border-color: var(--muted); }
+
+  footer {
+    padding: 2rem 4rem;
+    border-top: 0.5px solid var(--border);
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--muted); letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 768px) {
+    nav, section, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+    #about { grid-template-columns: 1fr; gap: 3rem; }
+    .project { grid-template-columns: 48px 1fr; }
+    .project-tags { display: none; }
+    .hero-scroll { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#hero">O.OH STUDIO</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-tag">Brand & Creative Studio · Taipei</div>
+  <h1 class="hero-title">
+    Brand Visual<br>
+    Project Plan<br>
+    <em>Social Media</em>
+  </h1>
+  <div class="hero-sub">
+    <span>Brand strategy</span>
+    <span>Visual planning</span>
+    <span>Creative direction</span>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<section id="about">
+  <div class="about-left">
+    <div class="about-label">Studio</div>
+    <p class="about-text">We build brands that leave <em>traces</em> — in the way people see, feel, and remember.</p>
+  </div>
+  <div class="about-details">
+    <div class="about-item">
+      <div class="about-item-label">Specialisation</div>
+      <div class="about-item-val">Brand visual identity, campaign planning, social media operation, KOL collaboration</div>
+    </div>
+    <div class="about-item">
+      <div class="about-item-label">Industries</div>
+      <div class="about-item-val">Fine jewellery · F&B · Lifestyle · Fashion</div>
+    </div>
+    <div class="about-item">
+      <div class="about-item-label">Based in</div>
+      <div class="about-item-val">Taipei, Taiwan</div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="section-header">
+    <span class="section-title">Selected work</span>
+    <span class="section-count">03 projects</span>
+  </div>
+  <div class="projects">
+
+    <div class="project">
+      <div class="project-num">01</div>
+      <div class="project-info">
+        <div class="project-title">Olivia Yao Jewellery × 鄭宜農</div>
+        <div class="project-meta">聯名首飾 · KOL collaboration · Campaign visual</div>
+      </div>
+      <div class="project-tags">
+        <span class="tag">Campaign</span>
+        <span class="tag">KOL</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-num">02</div>
+      <div class="project-info">
+        <div class="project-title">Olivia Yao Jewellery × 瑪G</div>
+        <div class="project-meta">聯名首飾 · KOL collaboration · Visual planning</div>
+      </div>
+      <div class="project-tags">
+        <span class="tag">Campaign</span>
+        <span class="tag">KOL</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-num">03</div>
+      <div class="project-info">
+        <div class="project-title">DOWA 道和日式鐵板燒</div>
+        <div class="project-meta">品牌建立 · 社群操作 · Brand identity & Social media</div>
+      </div>
+      <div class="project-tags">
+        <span class="tag">Branding</span>
+        <span class="tag">Social</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-pre">Let's work together</div>
+  <h2 class="contact-title">Start a <em>conversation</em></h2>
+  <div>
+    <a class="contact-link" href="mailto:hello@oohstudio.com">Email</a>
+    <a class="contact-link" href="#">Instagram</a>
+    <a class="contact-link" href="#">LinkedIn</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 O.OH STUDIO</span>
+  <span>Taipei, Taiwan</span>
+</footer>
+
+</body>
+</html>
